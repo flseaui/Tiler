@@ -1,10 +1,12 @@
 #include "Layer.h"
 
-Layer::Layer(const char* title, int width, int height)
+Layer::Layer(const char* title, int width, int height, int tileWidth, int tileHeight)
 {
 	this->title = title;
 	this->width = width;
 	this->height = height;
+	this->tileWidth = tileWidth;
+	this->tileHeight = tileHeight;
 }
 
 void Layer::render()

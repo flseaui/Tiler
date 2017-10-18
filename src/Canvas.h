@@ -5,10 +5,12 @@
 
 #include <vector>
 
+#include "Line.h"
+
 class Canvas
 {
 public:
-	Canvas(int width, int height, int tileWidth, int tileHeight);
+	Canvas(Camera* camera, int width, int height, int tileWidth, int tileHeight);
 	~Canvas();
 	void render();
 	void update();
@@ -31,6 +33,7 @@ public:
 private:
 	int width, height, tileWidth, tileHeight;
 	std::vector <Layer*> layers;
+	ColLine* line;
 };
 
 #endif

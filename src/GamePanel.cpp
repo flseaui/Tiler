@@ -5,7 +5,7 @@ GamePanel::GamePanel(Window * window, Camera * camera) : Panel(window, camera) {
 	this->window = window;
 	this->camera = camera;
 	//line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, 100, 0.1f);
-	canvas = new Canvas(10, 10, 32, 32);
+	canvas = new Canvas(camera, 10, 10, 32, 32);
 }
 
 void GamePanel::update() {

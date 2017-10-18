@@ -181,7 +181,7 @@ void TexRect::render() {
 	shader->setProjection(camera->getProjection());
 	shader->setView(camera->getView());
 	shader->setModel(fullTransform());
-	vao->render();
+	vao->render(0);
 	shader->disable();
 	texture->unbind();
 }

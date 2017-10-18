@@ -1,11 +1,12 @@
 #include "Canvas.h"
 
-Canvas::Canvas(int width, int height, int tileWidth, int tileHeight)
+Canvas::Canvas(Camera* camera, int width, int height, int tileWidth, int tileHeight)
 {
 	this->width = width;
 	this->height = height;
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
+	line = new ColLine(camera, 1, 1, 1, 1, 0, 0, 0, 100, 100, 0);
 }
 
 void Canvas::update()
@@ -15,6 +16,7 @@ void Canvas::update()
 
 void Canvas::render()
 {
+	line->render();
 	for (Layer* l : layers)
 		if (l->enabled())
 			l->render();
@@ -42,7 +44,7 @@ int Canvas::getTileHeight()
 
 void Canvas::addLayer()
 {
-	layers.insert(layers.begin(), new Layer("emtpy layer", width, height));
+	layers.insert(layers.begin(), new Layer("emtpy layer", width, height, tileWidth, tileHeight));
 }
 
 void Canvas::removeLayer()
