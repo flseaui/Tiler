@@ -5,6 +5,8 @@
 
 #include "Panel.h"
 
+#include "Rect.h"
+
 class GamePanel : public Panel
 {
 	public:
@@ -14,6 +16,7 @@ class GamePanel : public Panel
 		void update();
 		void setActive();
 		Shader2t* shader;
+		ColRect* line;
 };
 
 #endif

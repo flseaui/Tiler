@@ -4,6 +4,7 @@ GamePanel::GamePanel(Window * window, Camera * camera) : Panel(window, camera) {
 	state = 0;
 	this->window = window;
 	this->camera = camera;
+	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, 100, 0.1f);
 }
 
 void GamePanel::update() {
@@ -22,6 +23,7 @@ void GamePanel::update() {
 }
 
 void GamePanel::render() {
+	line->render();
 }
 
 void GamePanel::setActive()
