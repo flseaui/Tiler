@@ -10,7 +10,7 @@ class Vao
 	public:
 		Vao(float verts[], int32 num, uint32 indices[], int32 count);
 		void addAttrib(float data[], int32 num, int32 stride);
-		void render();
+		void render(int type);
 		~Vao();
 	private:
 		uint32 vao, ibo, vbos[15], count;

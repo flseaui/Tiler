@@ -8,6 +8,10 @@
 class Canvas
 {
 public:
+	Canvas(int width, int height, int tileWidth, int tileHeight);
+	~Canvas();
+	void render();
+	void update();
 	int getWidth();
 	int getHeight();
 	int getTileWidth();
@@ -27,8 +31,6 @@ public:
 private:
 	int width, height, tileWidth, tileHeight;
 	std::vector <Layer*> layers;
-	Canvas();
-	~Canvas();
 };
 
 #endif

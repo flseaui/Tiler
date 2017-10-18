@@ -1,13 +1,35 @@
 #include "Layer.h"
 
+Layer::Layer(const char* title, int width, int height)
+{
+	this->title = title;
+	this->width = width;
+	this->height = height;
+}
+
+void Layer::render()
+{
+	for (uint16 i = 0; i < width; ++i)
+		for (uint16 j = 0; j < height; ++j)
+		{
+			tiles[i * height + j]->setPosition(i * tileWidth, j * tileHeight);
+			tiles[i * height + j]->render();
+		}
+}
+
+void Layer::update()
+{
+
+}
+
 bool Layer::enabled()
 {
-	return enabled;
+	return !disabled;
 }
 
 void Layer::setEnabled(bool state)
 {
-	enabled = state;
+	disabled = !state;
 }
 
 const char* Layer::getTitle()
@@ -18,4 +40,39 @@ const char* Layer::getTitle()
 void Layer::setTitle(const char* title)
 {
 	this->title = title;
+}
+
+Tile* Layer::getTile(int xIndex, int yIndex)
+{
+	return tiles.at(xIndex * height + yIndex);
+}
+
+void Layer::setTile(int xIndex, int yIndex, Tile* tile)
+{
+	tiles.insert(tiles.begin() + (xIndex * height + yIndex), tile);
+}
+
+int Layer::getWidth()
+{
+	return width;
+}
+
+int Layer::getHeight()
+{
+	return height;
+}
+
+void Layer::setWidth(int width)
+{
+	this->width = width;
+}
+
+void Layer::setHeight(int height)
+{
+	this->height = height;
+}
+
+Layer::~Layer()
+{
+
 }

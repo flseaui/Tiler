@@ -20,11 +20,19 @@ void Vao::addAttrib(float data[], int32 length, int32 size) {
 	++attrib;
 }
 
-void Vao::render() {
+void Vao::render(int type) {
 	glBindVertexArray(vao);
 	for (int i = 0; i < attrib; ++i)
 		glEnableVertexAttribArray(i);
-	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, (void*)0);
+	switch (type)
+	{
+	case 0:
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, (void*)0);
+	case 1:
+		glDrawElements(GL_LINE, count, GL_UNSIGNED_INT, (void*)0);
+	default:
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, (void*)0);
+	}
 	for (int i = 0; i < attrib; ++i)
 		glDisableVertexAttribArray(i);
 }

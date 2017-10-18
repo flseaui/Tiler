@@ -1,8 +1,23 @@
 #include "Canvas.h"
 
-Canvas::Canvas()
+Canvas::Canvas(int width, int height, int tileWidth, int tileHeight)
 {
+	this->width = width;
+	this->height = height;
+	this->tileWidth = tileWidth;
+	this->tileHeight = tileHeight;
+}
 
+void Canvas::update()
+{
+	getCurrentLayer()->update();
+}
+
+void Canvas::render()
+{
+	for (Layer* l : layers)
+		if (l->enabled())
+			l->render();
 }
 
 int Canvas::getWidth()
@@ -27,12 +42,12 @@ int Canvas::getTileHeight()
 
 void Canvas::addLayer()
 {
-	layers.insert(layers.begin(), new Layer*());
+	layers.insert(layers.begin(), new Layer("emtpy layer", width, height));
 }
 
 void Canvas::removeLayer()
-{
-	layers.clear(getCurrentLayerID);
+{  
+	layers.erase(layers.begin() + getCurrentLayerID());
 }
 
 std::vector <Layer*> Canvas::getLayers()
@@ -52,14 +67,13 @@ Layer* Canvas::getLayer(int index)
 
 void Canvas::setLayer(int index, int otherIndex)
 {
-	layers.insert(index, layers.at(otherIndex));
+	layers.insert(layers.begin() + index, layers.at(otherIndex));
 }
 
 void Canvas::setLayer(int index, Layer* layer)
 {
-	layers.insert(index, layer);
+	layers.insert(layers.begin() + index, layer);
 }
-
 
 Layer* Canvas::getCurrentLayer()
 {
@@ -98,5 +112,5 @@ void Canvas::setCurrentLayerByID(int id, Layer* layer)
 
 Canvas::~Canvas()
 {
-	delete layers;
+	std::vector<Layer*>().swap(layers);
 }

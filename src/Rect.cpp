@@ -160,7 +160,7 @@ void ColRect::render() {
 	shader->setView(camera->getView());
 	shader->setModel(fullTransform());
 	shader->setColor(r, g, b, a);
-	vao->render();
+	vao->render(0);
 	shader->disable();
 }
 

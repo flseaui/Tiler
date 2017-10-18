@@ -5,6 +5,8 @@
 
 #include "Panel.h"
 
+#include "Canvas.h"
+
 #include "Rect.h"
 
 class GamePanel : public Panel
@@ -16,7 +18,8 @@ class GamePanel : public Panel
 		void update();
 		void setActive();
 		Shader2t* shader;
-		ColRect* line;
+		Canvas* canvas;
+		//ColRect* line;
 };
 
 #endif
