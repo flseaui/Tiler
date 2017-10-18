@@ -6,7 +6,7 @@ Canvas::Canvas(Camera* camera, int width, int height, int tileWidth, int tileHei
 	this->height = height;
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
-	line = new ColLine(camera, 1, 1, 1, 1, 0, 0, 0, 100, 100, 0);
+	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100);
 }
 
 void Canvas::update()
@@ -16,7 +16,21 @@ void Canvas::update()
 
 void Canvas::render()
 {
-	line->render();
+	line->setWidth(.1f);
+	line->setHeight(width * 8);
+	for (int i = 0; i <= width; ++i)
+	{
+		line->setPosition(i * 8, 0);
+		line->render();
+	}
+
+	line->setWidth(height * 8);
+	line->setHeight(.1f);
+	for (int i = 0; i <= height; ++i)
+	{
+		line->setPosition(0, i * 8);
+		line->render();
+	}
 	for (Layer* l : layers)
 		if (l->enabled())
 			l->render();

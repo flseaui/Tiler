@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include "Line.h"
+#include "Rect.h"
 
 class Canvas
 {
@@ -33,7 +33,7 @@ public:
 private:
 	int width, height, tileWidth, tileHeight;
 	std::vector <Layer*> layers;
-	ColLine* line;
+	ColRect* line;
 };
 
 #endif
