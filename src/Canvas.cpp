@@ -1,21 +1,40 @@
 #include "Canvas.h"
+#include <iostream>
 
-Canvas::Canvas(Camera* camera, int width, int height, int tileWidth, int tileHeight)
+Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWidth, int tileHeight)
 {
+	this->window = window;
 	this->width = width;
 	this->height = height;
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
 	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100);
+	tex = new Tile(camera, "res/textures/stone_texture.png", false, 0, 32, 32);
+	layers.resize(width * height);
+	setLayer(0, new Layer("base layer", width, height, tileWidth, tileHeight));
 }
 
 void Canvas::update()
 {
 	getCurrentLayer()->update();
+	for (int i = 0; i < getCurrentLayer()->getWidth(); i++)
+		for (int i = 0; i < getCurrentLayer()->getHeight(); i++)
+		{
+			if (window->getMouseLeft())
+			{
+			//	std::cout << "x: " << window->getMouseX() << " y: " << window->getMouseY() << std::endl;
+				if (window->getMouseX() > 0 && window->getMouseX() < width * 50 && window->getMouseY() > 0 && window->getMouseY() < height * 50)
+				{
+					std::cout << "x: " << window->getMouseX() << " y: " << window->getMouseY() << std::endl;
+					getCurrentLayer()->setTile(window->getMouseX() / 50, window->getMouseY() / 50, tex);
+				}
+			}
+		}
 }
 
 void Canvas::render()
 {
+	//render grid
 	line->setWidth(.1f);
 	line->setHeight(width * 8);
 	for (int i = 0; i <= width; ++i)
@@ -31,9 +50,11 @@ void Canvas::render()
 		line->setPosition(0, i * 8);
 		line->render();
 	}
+
 	for (Layer* l : layers)
-		if (l->enabled())
-			l->render();
+		if (l != nullptr)
+			if (l->enabled())
+				l->render();
 }
 
 int Canvas::getWidth()

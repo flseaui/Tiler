@@ -5,6 +5,11 @@
 
 void errorCallback(int32 code, const char message[]);
 void windowSizeCallback(GLFWwindow * window, int32 width, int32 height);
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+void cursorPosCallback(GLFWwindow* window, double x, double y);
+
+double mouseX, mouseY;
+bool mouseLeft, mouseRight;
 
 Window::Window(int32 width, int32 height, const char title[], bool vSync, bool resizable) {
 	init(width, height, title, vSync, resizable);
@@ -66,6 +71,8 @@ void Window::init(int32 width, int32 height, const char title[], bool vSync, boo
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glfwSetWindowSizeCallback(window, windowSizeCallback);
+	glfwSetCursorPosCallback(window, cursorPosCallback);
+	glfwSetMouseButtonCallback(window, mouseButtonCallback);
 
 	glfwSetWindowUserPointer(window, this);
 }
@@ -110,6 +117,26 @@ bool Window::isKeyPressed(int32 key) {
 	return glfwGetKey(window, key) == GLFW_PRESS;
 }
 
+double Window::getMouseX()
+{
+	return mouseX;
+}
+
+double Window::getMouseY()
+{
+	return mouseY;
+}
+
+bool Window::getMouseLeft()
+{
+	return mouseLeft;
+}
+
+bool Window::getMouseRight()
+{
+	return mouseRight;
+}
+
 Window::~Window() {
 	glfwDestroyWindow(window);
 }
@@ -127,4 +154,23 @@ void windowSizeCallback(GLFWwindow * window, int32 width, int32 height) {
 	glViewport(0, 0, width, height);
 	wObj->setWidth(width);
 	wObj->setHeight(height);
+}
+
+void cursorPosCallback(GLFWwindow* window, double x, double y)
+{
+	mouseX = x;
+	mouseY = y;
+}
+
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+		mouseRight = true;
+	else
+		mouseRight = false;
+
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+		mouseLeft = true;
+	else
+		mouseLeft = false;
 }

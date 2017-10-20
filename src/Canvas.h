@@ -5,12 +5,13 @@
 
 #include <vector>
 
+#include "Window.h"
 #include "Rect.h"
 
 class Canvas
 {
 public:
-	Canvas(Camera* camera, int width, int height, int tileWidth, int tileHeight);
+	Canvas(Window* window, Camera* camera, int width, int height, int tileWidth, int tileHeight);
 	~Canvas();
 	void render();
 	void update();
@@ -31,9 +32,11 @@ public:
 	void setCurrentLayerByID(int id, int index);
 	void setCurrentLayerByID(int id, Layer* layer);
 private:
+	Window* window;
 	int width, height, tileWidth, tileHeight;
 	std::vector <Layer*> layers;
 	ColRect* line;
+	Tile* tex;
 };
 
 #endif

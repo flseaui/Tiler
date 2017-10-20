@@ -23,6 +23,10 @@ public:
 	void close();
 
 	bool isKeyPressed(int32);
+	double getMouseX();
+	double getMouseY();
+	bool getMouseLeft();
+	bool getMouseRight();
 
 	~Window();
 

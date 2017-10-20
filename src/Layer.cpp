@@ -7,6 +7,8 @@ Layer::Layer(const char* title, int width, int height, int tileWidth, int tileHe
 	this->height = height;
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
+	disabled = false;
+	tiles.resize(width * height);
 }
 
 void Layer::render()
@@ -14,8 +16,11 @@ void Layer::render()
 	for (uint16 i = 0; i < width; ++i)
 		for (uint16 j = 0; j < height; ++j)
 		{
-			tiles[i * height + j]->setPosition(i * tileWidth, j * tileHeight);
-			tiles[i * height + j]->render();
+			if (tiles[i * height + j] != nullptr)
+			{
+				tiles[i * height + j]->setPosition(i * tileWidth, j * tileHeight);
+				tiles[i * height + j]->render();
+			}
 		}
 }
 
