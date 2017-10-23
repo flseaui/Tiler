@@ -4,57 +4,74 @@
 Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWidth, int tileHeight)
 {
 	this->window = window;
+	this->camera = camera;
 	this->width = width;
 	this->height = height;
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
 	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100);
-	tex = new Tile(camera, "res/textures/stone_texture.png", false, 0, 32, 32);
+	hitbox = new AABB(0, 0, width * tileWidth, height * tileHeight);
+	tex = new Tile(camera, "res/textures/sky_tile.png", false, 0, tileWidth, tileHeight);
+	hTex = new Tile(camera, "res/textures/hitbox.png", false, 0, tileWidth, tileHeight);
 	layers.resize(width * height);
 	setLayer(0, new Layer("base layer", width, height, tileWidth, tileHeight));
+	for (int i = 0; i < width; i++)
+		for (int j = 0; j < height; j++)
+			getCurrentLayer()->setTile(i, j, tex);
+	tex = new Tile(camera, "res/textures/stone_tile.png", false, 0, tileWidth, tileHeight);
 }
 
 void Canvas::update()
 {
 	getCurrentLayer()->update();
-	for (int i = 0; i < getCurrentLayer()->getWidth(); i++)
-		for (int i = 0; i < getCurrentLayer()->getHeight(); i++)
+	/*for (int i = 0; i < getCurrentLayer()->getWidth(); i++)
+		for (int j = 0; j < getCurrentLayer()->getHeight(); j++)
 		{
 			if (window->getMouseLeft())
 			{
-			//	std::cout << "x: " << window->getMouseX() << " y: " << window->getMouseY() << std::endl;
-				if (window->getMouseX() > 0 && window->getMouseX() < width * 50 && window->getMouseY() > 0 && window->getMouseY() < height * 50)
+				std::cout << "big ol kek" << std::endl;
+				if (getCurrentLayer()->getTile(i, j) != nullptr)
 				{
-					std::cout << "x: " << window->getMouseX() << " y: " << window->getMouseY() << std::endl;
-					getCurrentLayer()->setTile(window->getMouseX() / 50, window->getMouseY() / 50, tex);
+					std::cout << "big ol" << std::endl;
+					if (hitbox->contains(window->getMouseCX(camera), window->getMouseCY(camera)))
+					{
+						std::cout << "x: " << i << " y: " << j << std::endl;
+						getCurrentLayer()->setTile(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, tex);
+					}
 				}
 			}
-		}
+		}*/
+	if (window->getMouseLeft())
+		getCurrentLayer()->setTile(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, tex);
 }
 
 void Canvas::render()
 {
-	//render grid
-	line->setWidth(.1f);
-	line->setHeight(width * 8);
-	for (int i = 0; i <= width; ++i)
-	{
-		line->setPosition(i * 8, 0);
-		line->render();
-	}
-
-	line->setWidth(height * 8);
-	line->setHeight(.1f);
-	for (int i = 0; i <= height; ++i)
-	{
-		line->setPosition(0, i * 8);
-		line->render();
-	}
-
+	//render layers
 	for (Layer* l : layers)
 		if (l != nullptr)
 			if (l->enabled())
 				l->render();
+
+	//render grid
+	line->setWidth(1);
+	line->setHeight(width * tileWidth);
+	for (int i = 0; i <= width; ++i)
+	{
+		line->setPosition(i * tileWidth, 0);
+		line->render();
+	}
+
+	line->setWidth(height * tileHeight);
+	line->setHeight(1);
+	for (int i = 0; i <= height; ++i)
+	{
+		line->setPosition(0, i * tileHeight);
+		line->render();
+	}
+	//hTex->setPosition(0, 0);
+	//hTex->setDims(width * tileWidth, height * tileHeight);
+	//hTex->render();
 }
 
 int Canvas::getWidth()
@@ -104,12 +121,12 @@ Layer* Canvas::getLayer(int index)
 
 void Canvas::setLayer(int index, int otherIndex)
 {
-	layers.insert(layers.begin() + index, layers.at(otherIndex));
+	layers.at(index) = layers.at(otherIndex);
 }
 
 void Canvas::setLayer(int index, Layer* layer)
 {
-	layers.insert(layers.begin() + index, layer);
+	layers.at(index) =  layer;
 }
 
 Layer* Canvas::getCurrentLayer()

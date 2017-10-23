@@ -56,7 +56,7 @@ Tile* Layer::getTile(int xIndex, int yIndex)
 
 void Layer::setTile(int xIndex, int yIndex, Tile* tile)
 {
-	tiles.insert(tiles.begin() + (xIndex * height + yIndex), tile);
+	tiles.at(xIndex * height + yIndex) = tile;
 }
 
 int Layer::getWidth()

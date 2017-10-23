@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "Camera.h"
 #include "Types.h"
 
 class Window {
@@ -23,6 +24,8 @@ public:
 	void close();
 
 	bool isKeyPressed(int32);
+	double getMouseCX(Camera* camera);
+	double getMouseCY(Camera* camera);
 	double getMouseX();
 	double getMouseY();
 	bool getMouseLeft();

@@ -20,6 +20,7 @@ public:
 	void setRotation(float angle);
 	glm::mat4 getProjection();
 	glm::mat4 getView();
+	float getScale();
 	void zoomi();
 	void zoomo();
 private:

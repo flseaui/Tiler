@@ -5,6 +5,7 @@
 
 #include <vector>
 
+#include "AABB.h"
 #include "Window.h"
 #include "Rect.h"
 
@@ -33,10 +34,12 @@ public:
 	void setCurrentLayerByID(int id, Layer* layer);
 private:
 	Window* window;
+	Camera* camera;
 	int width, height, tileWidth, tileHeight;
 	std::vector <Layer*> layers;
+	AABB* hitbox;
 	ColRect* line;
-	Tile* tex;
+	Tile* tex, *hTex;
 };
 
 #endif

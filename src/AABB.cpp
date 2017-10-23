@@ -10,6 +10,11 @@ bool AABB::collides(AABB * hitbox) {
 		   abs(center.y - hitbox->center.y) < abs(halfExtent.y + hitbox->halfExtent.y);
 }
 
+bool AABB::contains(float x, float y)
+{
+	return (x > center.x - halfExtent.x && x < center.x + halfExtent.x && y > center.y - halfExtent.y && y < center.y + halfExtent.y);
+}
+
 glm::vec3 AABB::getTransform(AABB * hitbox) {
 	float dx = abs(center.x - hitbox->center.x) - abs(halfExtent.x + hitbox->halfExtent.x);
 	float dy = abs(center.y - hitbox->center.y) - abs(halfExtent.y + hitbox->halfExtent.y);

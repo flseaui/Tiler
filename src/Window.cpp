@@ -127,6 +127,15 @@ double Window::getMouseY()
 	return mouseY;
 }
 
+double Window::getMouseCX(Camera* camera)
+{
+	return ((mouseX - camera->getPos().x) * camera->getWidth()) / width;
+}
+
+double Window::getMouseCY(Camera* camera)
+{
+	return ((mouseY - camera->getPos().y) * camera->getHeight()) / height;
+}
 bool Window::getMouseLeft()
 {
 	return mouseLeft;

@@ -8,6 +8,7 @@ class AABB {
 public:
 	AABB(float x, float y, float width, float height);
 	bool collides(AABB * hitbox);
+	bool contains(float x, float y);
 	glm::vec3 getTransform(AABB * hitbox);
 	float getTransformX(AABB * hitbox);
 	float getTransformY(AABB * hitbox);

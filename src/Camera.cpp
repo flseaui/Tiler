@@ -32,6 +32,11 @@ int Camera::getHeight()
 	return height;
 }
 
+float Camera::getScale()
+{
+	return scale;
+}
+
 void Camera::translate(glm::vec3 vec)
 {
 	position.x -= vec.x;
