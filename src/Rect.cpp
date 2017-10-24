@@ -217,6 +217,11 @@ void TexRect::initVao() {
 	vao->addAttrib(texCoords, 4, 2);
 }
 
+void TexRect::setTexture(Texture* texture)
+{
+	this->texture = texture;
+}
+
 TexRect::~TexRect() {
 	delete texture;
 }

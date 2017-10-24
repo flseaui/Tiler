@@ -62,6 +62,7 @@ class TexRect : public Rect {
 public:
 	TexRect(Camera * camera, const char path[], float x, float y, float z, float width, float height);
 	void render();
+	void setTexture(Texture* texture);
 	~TexRect();
 private:
 	Texture * texture;

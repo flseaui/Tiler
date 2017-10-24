@@ -7,6 +7,8 @@
 
 #include "Canvas.h"
 
+#include "Button.h"
+
 #include "Rect.h"
 
 class GamePanel : public Panel
@@ -19,7 +21,7 @@ class GamePanel : public Panel
 		void setActive();
 		Shader2t* shader;
 		Canvas* canvas;
-		//ColRect* line;
+		Button* button;
 };
 
 #endif

@@ -18,7 +18,7 @@ Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWi
 	for (int i = 0; i < width; i++)
 		for (int j = 0; j < height; j++)
 			getCurrentLayer()->setTile(i, j, tex);
-	tex = new Tile(camera, "res/textures/stone_tile.png", false, 0, tileWidth, tileHeight);
+	tex = new Tile(camera, "res/textures/cmbt.png", false, 0, tileWidth, tileHeight);
 }
 
 void Canvas::update()
