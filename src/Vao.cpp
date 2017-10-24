@@ -29,7 +29,7 @@ void Vao::render(int type) {
 	case 0:
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, (void*)0);
 	case 1:
-		glDrawElements(GL_LINE, count, GL_UNSIGNED_INT, (void*)0);
+		glDrawElements(GL_LINE_STRIP, count, GL_UNSIGNED_INT, (void*)0);
 	default:
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, (void*)0);
 	}

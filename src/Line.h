@@ -1,5 +1,5 @@
-#ifndef __RECT_H_
-#define __RECT_H_
+#ifndef __LINE_H_
+#define __LINE_H_
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -8,7 +8,7 @@
 #include "Shader.h"
 #include "Vao.h"
 
-class Rect {
+class Line {
 public:
 	virtual void render() = 0;
 	glm::mat4 fullTransform();
@@ -16,15 +16,14 @@ public:
 	float getY();
 	glm::vec3 getPosition();
 	float getRotation();
-	float getWidth();
-	float getHeight();
-	glm::vec3 getDims();
 	void setX(float x);
 	void setY(float y);
 	void setZ(float z);
 	void setPosition(float x, float y);
 	void setPosition(float x, float y, float z);
 	void setPosition(glm::vec3 vector);
+	void setOffset(glm::vec3 offset);
+	glm::vec3 getOffset();
 	void translateX(float x);
 	void translateY(float y);
 	void translateZ(float z);
@@ -32,25 +31,20 @@ public:
 	void translate(glm::vec3 vector);
 	void setRotation(float angle);
 	void rotate(float angle);
-	void scale(float scale);
-	void scale(float x, float y);
-	void setWidth(float width);
-	void setHeight(float height);
-	void setDims(float width, float height);
-	~Rect();
+	~Line();
 protected:
 	Camera * camera;
 	glm::vec3 position;
-	float rotation, width, height;
-	Rect(Camera * camera, float x, float y, float z, float width, float height);
+	glm::vec3 offset;
+	float rotation;
+	Line(Camera * camera, float x, float y, float z, float xOffset, float yOffset, float zOffset);
 };
 
-class ColRect : public Rect {
+class ColLine : public Line {
 public:
-	ColRect(Camera * camera, float r, float g, float b, float a, float x, float y, float z, float width, float height);
+	ColLine(Camera * camera, float r, float g, float b, float a, float x, float y, float z, float xOffset, float yOffset, float zOffset);
 	void render();
-	void render(bool type);
-	~ColRect();
+	~ColLine();
 private:
 	Shader2c * shader;
 	static Vao * vao;
@@ -58,16 +52,5 @@ private:
 	float r, g, b, a;
 };
 
-class TexRect : public Rect {
-public:
-	TexRect(Camera * camera, const char path[], float x, float y, float z, float width, float height);
-	void render();
-	~TexRect();
-private:
-	Texture * texture;
-	Shader2t * shader;
-	static Vao * vao;
-	void initVao();
-};
 
 #endif

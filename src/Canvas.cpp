@@ -50,20 +50,20 @@ void Canvas::render()
 	
 
 	//render grid
-	line->setWidth(1);
+	line->setWidth(.1f);
 	line->setHeight(width * tileWidth);
 	for (int i = 0; i <= width; ++i)
 	{
 		line->setPosition(i * tileWidth, 0);
-		line->render();
+		line->render(true);
 	}
 
 	line->setWidth(height * tileHeight);
-	line->setHeight(1);
+	line->setHeight(.1f);
 	for (int i = 0; i <= height; ++i)
 	{
 		line->setPosition(0, i * tileHeight);
-		line->render();
+		line->render(true);
 	}
 	//hTex->setPosition(0, 0);
 	//hTex->setDims(width * tileWidth, height * tileHeight);

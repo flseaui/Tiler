@@ -154,6 +154,16 @@ void ColRect::initVao() {
 	vao = new Vao(vertices, 4, indices, 6);
 }
 
+void ColRect::render(bool state) {
+	shader->enable();
+	shader->setProjection(camera->getProjection());
+	shader->setView(camera->getView());
+	shader->setModel(fullTransform());
+	shader->setColor(r, g, b, a);
+	vao->render(1);
+	shader->disable();
+}
+
 void ColRect::render() {
 	shader->enable();
 	shader->setProjection(camera->getProjection());
