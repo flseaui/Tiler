@@ -47,11 +47,7 @@ void Canvas::update()
 
 void Canvas::render()
 {
-	//render layers
-	for (Layer* l : layers)
-		if (l != nullptr)
-			if (l->enabled())
-				l->render();
+	
 
 	//render grid
 	line->setWidth(1);
@@ -72,6 +68,11 @@ void Canvas::render()
 	//hTex->setPosition(0, 0);
 	//hTex->setDims(width * tileWidth, height * tileHeight);
 	//hTex->render();
+	//render layers
+	for (Layer* l : layers)
+		if (l != nullptr)
+			if (l->enabled())
+				l->render();
 }
 
 int Canvas::getWidth()
