@@ -26,4 +26,13 @@ private:
 	Window* window;
 };
 
+class TexButton : public Button
+{
+public:
+	TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height);
+	void renderTexture();
+private:
+	TexRect* texture;
+};
+
 #endif

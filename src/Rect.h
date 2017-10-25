@@ -60,7 +60,7 @@ private:
 
 class TexRect : public Rect {
 public:
-	TexRect(Camera * camera, const char path[], float x, float y, float z, float width, float height);
+	TexRect(Camera * camera, const char path[], float x, float y, float z, float width, float height, bool independent);
 	void render();
 	void setTexture(Texture* texture);
 	~TexRect();
@@ -69,6 +69,7 @@ private:
 	Shader2t * shader;
 	static Vao * vao;
 	void initVao();
+	bool independent;
 };
 
 #endif

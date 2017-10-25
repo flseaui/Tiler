@@ -2,7 +2,7 @@
 
 extern double deltaTime;
 
-Player::Player(Window * window, Camera* camera) : TexRect(camera, "res/textures/clatab.png", 32, 32, 0, 16, 16)
+Player::Player(Window * window, Camera* camera) : TexRect(camera, "res/textures/clatab.png", 32, 32, 0, 16, 16, false)
 {
 	this->window = window;
 	gravity = 25.0f;

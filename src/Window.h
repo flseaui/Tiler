@@ -26,6 +26,8 @@ public:
 	bool isKeyPressed(int32);
 	double getMouseCX(Camera* camera);
 	double getMouseCY(Camera* camera);
+	double getMouseUX(Camera* camera);
+	double getMouseUY(Camera* camera);
 	double getMouseX();
 	double getMouseY();
 	bool getMouseLeft();

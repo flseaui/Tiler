@@ -178,18 +178,19 @@ ColRect::~ColRect() {}
 
 //TexRect - Textured Rectangle
 
-TexRect::TexRect(Camera * camera, const char path[], float x, float y, float z, float width, float height) : Rect(camera, x, y, z, width, height) {
+TexRect::TexRect(Camera * camera, const char path[], float x, float y, float z, float width, float height, bool independent) : Rect(camera, x, y, z, width, height) {
 	texture = new Texture(path);
 	shader = Shader::SHADER2T;
 	if (!vao)
 		initVao();
+	this->independent = independent;
 }
 
 void TexRect::render() {
 	texture->bind();
 	shader->enable();
 	shader->setProjection(camera->getProjection());
-	shader->setView(camera->getView());
+	shader->setView(independent ? glm::mat4(1) : camera->getView());
 	shader->setModel(fullTransform());
 	vao->render(0);
 	shader->disable();

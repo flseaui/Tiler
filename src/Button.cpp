@@ -1,6 +1,6 @@
 #include "Button.h"
 
-Button::Button(Window* window, Camera* camera, const char* pPressed, const char* pUnpressed, const char* pHover, float x, float y, float width, float height) : TexRect(camera, pPressed, x, y, 0, width, height)
+Button::Button(Window* window, Camera* camera, const char* pPressed, const char* pUnpressed, const char* pHover, float x, float y, float width, float height) : TexRect(camera, pPressed, x, y, 0, width, height, true)
 {
 	this->window = window;
 	this->hitbox = new AABB(x, y, width, height);
@@ -12,7 +12,7 @@ Button::Button(Window* window, Camera* camera, const char* pPressed, const char*
 
 void Button::update()
 {
-	if (hitbox->contains(window->getMouseCX(camera), window->getMouseCY(camera)))
+	if (hitbox->contains(window->getMouseUX(camera), window->getMouseUY(camera)))
 	{
 		if (window->getMouseLeft())
 			state = PRESSED;
@@ -44,4 +44,14 @@ void Button::update()
 AABB* Button::getHitbox()
 {
 	return hitbox;
+}
+
+TexButton::TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height) : Button(window, camera, "res/textures/button_pressed.png", "res/textures/button_unpressed.png", "res/textures/button_hover.png", x, y, width, height)
+{
+	this->texture = new TexRect(camera, texture, x + (width / 6), y + (height / 6), 0, width - (width / 3), height - (height / 3), true);
+}
+
+void TexButton::renderTexture()
+{
+	texture->render();
 }
