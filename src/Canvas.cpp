@@ -11,7 +11,7 @@ Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWi
 	this->tileHeight = tileHeight;
 	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100);
 	hitbox = new AABB(0, 0, width * tileWidth, height * tileHeight);
-	tileset = new Tileset(camera, 4);
+	tileset = new Tileset(camera, 5);
 	layers.resize(width * height);
 	setLayer(0, new Layer("base layer", width, height, tileset, tileWidth, tileHeight));
 	for (int i = 0; i < width; i++)

@@ -1,4 +1,4 @@
-#include "Vao.h"
+ #include "Vao.h"
 
 Vao::Vao(float vertices[], int32 num, uint32 indices[], int32 count) {
 	attrib = 0;
