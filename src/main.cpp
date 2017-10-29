@@ -60,7 +60,7 @@ int main(int32 argc, char *argv[]) {
 void init()
 {
 	window = new Window(0, 0, "test", true, true);
-	camera = new Camera(320, 180);
+	camera = new Camera(640, 360);
 	Shader::init();
 	panels[0] = new GamePanel(window, camera);
 	state = 0;

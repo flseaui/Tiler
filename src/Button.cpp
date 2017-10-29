@@ -46,12 +46,23 @@ AABB* Button::getHitbox()
 	return hitbox;
 }
 
-TexButton::TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height) : Button(window, camera, "res/textures/button_pressed.png", "res/textures/button_unpressed.png", "res/textures/button_hover.png", x, y, width, height)
+int Button::getState()
+{
+	return state;
+}
+
+TexButton::TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height, int id) : Button(window, camera, "res/textures/button_pressed.png", "res/textures/button_unpressed.png", "res/textures/button_hover.png", x, y, width, height)
 {
 	this->texture = new TexRect(camera, texture, x + (width / 6), y + (height / 6), 0, width - (width / 3), height - (height / 3), true);
+	this->id = id;
 }
 
 void TexButton::renderTexture()
 {
 	texture->render();
+}
+
+int TexButton::getID()
+{
+	return id;
 }

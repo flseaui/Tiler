@@ -11,17 +11,16 @@ Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWi
 	this->tileHeight = tileHeight;
 	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100);
 	hitbox = new AABB(0, 0, width * tileWidth, height * tileHeight);
-	tex = new Tile(camera, "res/textures/sky_tile.png", false, 0, tileWidth, tileHeight);
-	hTex = new Tile(camera, "res/textures/hitbox.png", false, 0, tileWidth, tileHeight);
+	tileset = new Tileset(camera, 4);
 	layers.resize(width * height);
-	setLayer(0, new Layer("base layer", width, height, tileWidth, tileHeight));
+	setLayer(0, new Layer("base layer", width, height, tileset, tileWidth, tileHeight));
 	for (int i = 0; i < width; i++)
 		for (int j = 0; j < height; j++)
-			getCurrentLayer()->setTile(i, j, tex);
-	tex = new Tile(camera, "res/textures/cmbt.png", false, 0, tileWidth, tileHeight);
+			getCurrentLayer()->setTile(i, j, 0);
+	camera->setPos(glm::vec3(-(width * tileWidth) / 2, -((height * tileHeight) / 9), 0));
 }
 
-void Canvas::update()
+void Canvas::update(int curTile)
 {
 	getCurrentLayer()->update();
 	/*for (int i = 0; i < getCurrentLayer()->getWidth(); i++)
@@ -42,13 +41,12 @@ void Canvas::update()
 			}
 		}*/
 	if (window->getMouseLeft())
-		getCurrentLayer()->setTile(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, tex);
+		getCurrentLayer()->setTile(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, curTile);
 }
 
 void Canvas::render()
 {
 	
-
 	//render grid
 	line->setWidth(.1f);
 	line->setHeight(width * tileWidth);
@@ -97,7 +95,7 @@ int Canvas::getTileHeight()
 
 void Canvas::addLayer()
 {
-	layers.insert(layers.begin(), new Layer("emtpy layer", width, height, tileWidth, tileHeight));
+	layers.insert(layers.begin(), new Layer("emtpy layer", width, height, tileset, tileWidth, tileHeight));
 }
 
 void Canvas::removeLayer()

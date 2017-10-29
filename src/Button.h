@@ -12,6 +12,7 @@ public:
 	Button(Window* window, Camera* camera, const char* pressed, const char* unpressed, const char* hover, float x, float y, float width, float height);
 	AABB* getHitbox();
 	void update();
+	int getState();
 private:
 	enum State
 	{
@@ -29,10 +30,12 @@ private:
 class TexButton : public Button
 {
 public:
-	TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height);
+	TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height, int id);
 	void renderTexture();
+	int getID();
 private:
 	TexRect* texture;
+	int id;
 };
 
 #endif

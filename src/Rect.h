@@ -63,12 +63,14 @@ public:
 	TexRect(Camera * camera, const char path[], float x, float y, float z, float width, float height, bool independent);
 	void render();
 	void setTexture(Texture* texture);
+	const char* getPath();
 	~TexRect();
 private:
 	Texture * texture;
 	Shader2t * shader;
 	static Vao * vao;
 	void initVao();
+	const char* path;
 	bool independent;
 };
 

@@ -8,6 +8,7 @@
 #include "AABB.h"
 #include "Window.h"
 #include "Rect.h"
+#include "Tileset.h"
 
 class Canvas
 {
@@ -15,7 +16,7 @@ public:
 	Canvas(Window* window, Camera* camera, int width, int height, int tileWidth, int tileHeight);
 	~Canvas();
 	void render();
-	void update();
+	void update(int curTile);
 	int getWidth();
 	int getHeight();
 	int getTileWidth();
@@ -37,6 +38,7 @@ private:
 	Camera* camera;
 	int width, height, tileWidth, tileHeight;
 	std::vector <Layer*> layers;
+	Tileset* tileset;
 	AABB* hitbox;
 	ColRect* line;
 	Tile* tex, *hTex;

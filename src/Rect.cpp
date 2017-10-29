@@ -184,6 +184,7 @@ TexRect::TexRect(Camera * camera, const char path[], float x, float y, float z, 
 	if (!vao)
 		initVao();
 	this->independent = independent;
+	this->path = path;
 }
 
 void TexRect::render() {
@@ -221,6 +222,11 @@ void TexRect::initVao() {
 void TexRect::setTexture(Texture* texture)
 {
 	this->texture = texture;
+}
+
+const char* TexRect::getPath()
+{
+	return path;
 }
 
 TexRect::~TexRect() {

@@ -21,7 +21,7 @@ class GamePanel : public Panel
 		void setActive();
 		Shader2t* shader;
 		Canvas* canvas;
-		TexButton* buttons[3];
+		TexButton* buttons[4];
 };
 
 #endif
