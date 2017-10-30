@@ -23,6 +23,7 @@ public:
 	void setWidth(int width);
 	void setHeight(int height);
 	Tileset* getTileset();
+	void fill(int xIndex, int yIndex, int tile);
 private:
 	int height;
 	int width;

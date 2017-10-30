@@ -8,10 +8,11 @@ GamePanel::GamePanel(Window * window, Camera * camera) : Panel(window, camera) {
 	//line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, 100, 0.1f);
 	canvas = new Canvas(window, camera, 10, 10, 32, 32);
 	buttons[0] = new TexButton(window, camera, "res/textures/eraser.png", 0, 0, 32, 32, 0);
-	buttons[1] = new TexButton(window, camera, "res/textures/sky_tile.png", 0, 32, 32, 32, 1);
-	buttons[2] = new TexButton(window, camera, "res/textures/stone_tile.png", 0, 64, 32, 32, 2);
-	buttons[3] = new TexButton(window, camera, "res/textures/cmbt.png", 0, 96, 32, 32, 3);
-	buttons[4] = new TexButton(window, camera, "res/textures/clab.png", 0, 128, 32, 32, 4);
+	buttons[1] = new TexButton(window, camera, "res/textures/paint_bucket.png", 0, 32, 32, 32, 1);
+	buttons[2] = new TexButton(window, camera, "res/textures/sky_tile.png", 0, 64, 32, 32, 2);
+	buttons[3] = new TexButton(window, camera, "res/textures/stone_tile.png", 0, 96, 32, 32, 3);
+	buttons[4] = new TexButton(window, camera, "res/textures/cmbt.png", 0, 128, 32, 32, 4);
+	buttons[5] = new TexButton(window, camera, "res/textures/clab.png", 0, 160, 32, 32, 5);
 
 	curTile = 0;
 }
@@ -23,7 +24,13 @@ void GamePanel::update() {
 		button->update();
 		if (button->getState() == 2)
 		{
-			curTile = button->getID();
+			//if button is paint bucket
+			if (button->getID() == 1)
+			{
+				canvas->setBucket(true);
+			}
+			else
+				curTile = button->getID();
 		}
 	}
 	if (window->isKeyPressed(GLFW_KEY_LEFT))

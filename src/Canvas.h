@@ -33,6 +33,7 @@ public:
 	int getCurrentLayerID();
 	void setCurrentLayerByID(int id, int index);
 	void setCurrentLayerByID(int id, Layer* layer);
+	void setBucket(bool state);
 private:
 	Window* window;
 	Camera* camera;
@@ -42,6 +43,7 @@ private:
 	AABB* hitbox;
 	ColRect* line;
 	Tile* tex, *hTex;
+	bool bucket;
 };
 
 #endif

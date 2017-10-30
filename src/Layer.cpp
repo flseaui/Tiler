@@ -63,6 +63,22 @@ void Layer::setTile(int xIndex, int yIndex, int tile)
 		map.at(xIndex * height + yIndex) = tile;
 }
 
+void Layer::fill(int xIndex, int yIndex, int tile)
+{
+	if (!(xIndex >= width || xIndex < 0 || yIndex >= height || yIndex < 0))
+	{
+		int target = getTile(xIndex, yIndex);
+		for (int i = -1; i < 2; i++)
+			for (int j = -1; j < 2; j++)
+			{
+				if (map.at(xIndex > 0 ? xIndex + i : 0 * height + yIndex > 0 ? yIndex + j : 0) == target)
+				{
+					map.at(xIndex > 0 ? xIndex + i : 0 * height + yIndex > 0 ? yIndex + j : 0) = tile;
+				}
+			}
+	}
+}
+
 int Layer::getWidth()
 {
 	return width;

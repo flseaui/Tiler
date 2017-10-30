@@ -11,13 +11,15 @@ Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWi
 	this->tileHeight = tileHeight;
 	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100);
 	hitbox = new AABB(0, 0, width * tileWidth, height * tileHeight);
-	tileset = new Tileset(camera, 5);
+	tileset = new Tileset(camera, 6);
 	layers.resize(width * height);
 	setLayer(0, new Layer("base layer", width, height, tileset, tileWidth, tileHeight));
 	for (int i = 0; i < width; i++)
 		for (int j = 0; j < height; j++)
 			getCurrentLayer()->setTile(i, j, 0);
 	camera->setPos(glm::vec3(-(width * tileWidth) / 2, -((height * tileHeight) / 9), 0));
+
+	bucket = false;
 }
 
 void Canvas::update(int curTile)
@@ -41,7 +43,14 @@ void Canvas::update(int curTile)
 			}
 		}*/
 	if (window->getMouseLeft())
-		getCurrentLayer()->setTile(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, curTile);
+	{
+		if (bucket)
+		{
+			getCurrentLayer()->fill(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, curTile);
+		}
+		else
+			getCurrentLayer()->setTile(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, curTile);	
+	}
 }
 
 void Canvas::render()
@@ -161,6 +170,11 @@ void Canvas::setCurrentLayerByID(int id, Layer* layer)
 	for (int i = 0; i < layers.size(); ++i)
 		if (i == id)
 			layers[i] = layer;
+}
+
+void Canvas::setBucket(bool state)
+{
+	bucket = state;
 }
 
 Canvas::~Canvas()
