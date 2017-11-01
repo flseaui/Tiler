@@ -1,5 +1,6 @@
 #include "Layer.h"
 #include <iostream>
+#include <queue>
 
 Layer::Layer(const char* title, int width, int height, Tileset* tileset, int tileWidth, int tileHeight)
 {
@@ -63,19 +64,87 @@ void Layer::setTile(int xIndex, int yIndex, int tile)
 		map.at(xIndex * height + yIndex) = tile;
 }
 
-void Layer::fill(int xIndex, int yIndex, int tile)
+/*void Layer::fill(int xIndex, int yIndex, int tile)
 {
-	if (!(xIndex >= width || xIndex < 0 || yIndex >= height || yIndex < 0))
+	if (!(xIndex >= width || xIndex <= 0 || yIndex >= height || yIndex <= 0))
 	{
+		bool* checked = new bool[width * height];
 		int target = getTile(xIndex, yIndex);
+		for (int i = -1; i < 1; i++)
+			for (int j = -1; j < 1; j++)
+			{
+				if (map.at((xIndex + i) * height + (yIndex + j)) == target)
+				{
+					map.at((xIndex + i) * height + (yIndex + j)) = tile;
+					if (checked[(xIndex + i) * height + (yIndex + j)] == false)
+						fill(xIndex + i, yIndex + j, tile);
+					else
+						checked[(xIndex + i) * height + (yIndex + j)] = true;
+				}
+			}
+		delete checked;
+	}
+}*/
+
+/*void Layer::fill(int x, int y, int tile)
+{
+		bool* checked = new bool[width * height];
+
 		for (int i = -1; i < 2; i++)
 			for (int j = -1; j < 2; j++)
 			{
-				if (map.at(xIndex > 0 ? xIndex + i : 0 * height + yIndex > 0 ? yIndex + j : 0) == target)
-				{
-					map.at(xIndex > 0 ? xIndex + i : 0 * height + yIndex > 0 ? yIndex + j : 0) = tile;
-				}
+				fillCheck(x + i, y + j, tile);
 			}
+
+		delete checked;
+}*/
+
+void Layer::fill(int x, int y, int tile)
+{
+	if (x >= 0 && x < width && y >= 0 && y < height)
+	{
+		if (getTile(x, y) == tile) return;
+
+		struct node { int x; int y; };
+		std::queue<node> nodes;
+
+		map.at(x * height + y) = tile;
+		nodes.push({ x, y });
+
+		while (nodes.size() > 0)
+		{
+			auto n = nodes.front();
+			nodes.pop();
+			std::queue<node> subNodes;
+			map.at((n.x - 1) * height + n.y) = map.at(n.x * height + n.y);
+			map.at((n.x + 1) * height + n.y) = map.at(n.x * height + n.y);
+			for (int i = n.x; map.at(i * height + n.y) != tile; --i)
+				subNodes.push({ i, n.y });
+			for (int i = n.x; map.at(i * height + n.y) != tile; ++i)
+				subNodes.push({ i, n.y });
+			while (subNodes.size() > 0)
+			{
+				auto sn = subNodes.front();
+				subNodes.pop();
+				map.at(sn.x * height + sn.y) = tile;
+				if (map.at(sn.x * height + (sn.y - 1)) == getTile(x, y))
+					nodes.push({ sn.x, sn.y - 1 });
+				if (map.at(sn.x * height + (sn.y + 1)) == getTile(x, y))
+					nodes.push({ sn.x, sn.y + 1 });
+			}
+		}
+	}
+}
+
+
+void Layer::fillCheck(int x, int y, int tile)
+{
+	if (x >= 0 && x < width && y >= 0 && y < height)
+	{
+		int target = getTile(x, y);
+		if (target == tile) return;
+		if (map.at(x * height + y) == target)
+			map.at(x * height + y) = tile;
 	}
 }
 

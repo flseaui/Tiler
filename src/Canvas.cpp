@@ -174,7 +174,7 @@ void Canvas::setCurrentLayerByID(int id, Layer* layer)
 
 void Canvas::setBucket(bool state)
 {
-	bucket = state;
+	bucket = !bucket;
 }
 
 Canvas::~Canvas()

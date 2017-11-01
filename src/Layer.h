@@ -33,6 +33,7 @@ private:
 	Tileset* tileset;
 	bool disabled;
 	const char* title;
+	void fillCheck(int x, int y, int tile);
 };
 
 #endif
