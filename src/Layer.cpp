@@ -2,6 +2,7 @@
 #include <iostream>
 #include <queue>
 
+
 Layer::Layer(const char* title, int width, int height, Tileset* tileset, int tileWidth, int tileHeight)
 {
 	this->title = title;
@@ -12,6 +13,7 @@ Layer::Layer(const char* title, int width, int height, Tileset* tileset, int til
 	this->tileHeight = tileHeight;
 	disabled = false;
 	map.resize(width * height);
+	std::fill(map.begin(), map.end(), 0);
 }
 
 void Layer::render()
@@ -103,7 +105,8 @@ void Layer::fill(int x, int y, int tile)
 {
 	if (x >= 0 && x < width && y >= 0 && y < height)
 	{
-		if (getTile(x, y) == tile) return;
+		int target = getTile(x, y);
+		if (target == tile) return;
 
 		struct node { int x; int y; };
 		std::queue<node> nodes;
@@ -115,27 +118,19 @@ void Layer::fill(int x, int y, int tile)
 		{
 			auto n = nodes.front();
 			nodes.pop();
-			node w = { 0, n.y };
-			node e = { width, n.y };
 			std::queue<node> subNodes;
-			//map.at((n.x - 1) * height + n.y) = map.at(n.x * height + n.y);
-			//map.at((n.x + 1) * height + n.y) = map.at(n.x * height + n.y);
-			for (int i = n.x - 1; map.at(((i > 0 ? i : 0) * height) + n.y) == getTile(x, y) && i > 0; --i)
-				w = { i, n.y };
-				//subNodes.push({ i, n.y });
-			for (int j = n.x + 1; map.at(((j < width - 1 ? j : width - 1) * height) + n.y) == getTile(x, y) && j < width - 1; ++j)
-				e = { j, n.y };
-				//subNodes.push({ j, n.y });
-			/*while (subNodes.size() > 0)
+			for (int i = n.x - 1; map.at(((i > 0 ? i : 0) * height) + n.y) == target && i > 0; --i)
+				subNodes.push({ i, n.y });
+			for (int j = n.x + 1; map.at(((j < width - 1 ? j : width - 1) * height) + n.y) == target && j < width - 1; ++j)
+				subNodes.push({ j, n.y });
+			while (subNodes.size() > 0)
 			{
 				auto sn = subNodes.front();
-				subNodes.pop();*/
-			for (node sn = w; sn.x < e.x; ++sn.x)
-			{
+				subNodes.pop();
 				map.at(sn.x * height + sn.y) = tile;
-				if (map.at(sn.x * height + (sn.y - 1)) == getTile(x, y))
+				if (map.at(sn.x * height + (sn.y > 0 ? sn.y - 1 : 0)) == target)
 					nodes.push({ sn.x, sn.y - 1 });
-				if (map.at(sn.x * height + (sn.y + 1)) == getTile(x, y))
+				if (map.at(sn.x * height + (sn.y < width - 1 ? sn.y + 1 : width - 1)) == target)
 					nodes.push({ sn.x, sn.y + 1 });
 			}
 		}
