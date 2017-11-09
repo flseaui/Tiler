@@ -118,21 +118,33 @@ void Layer::fill(int x, int y, int tile)
 		{
 			auto n = nodes.front();
 			nodes.pop();
+			map.at(n.x * height + n.y) = tile;
 			std::queue<node> subNodes;
 			for (int i = n.x - 1; map.at(((i > 0 ? i : 0) * height) + n.y) == target && i >= 0; --i)
 				subNodes.push({ i, n.y });
 			for (int j = n.x + 1; map.at(((j < width - 1 ? j : width - 1) * height) + n.y) == target && j < width; ++j)
 				subNodes.push({ j, n.y });
-			while (subNodes.size() > 0)
+			do
 			{
-				auto sn = subNodes.front();
-				subNodes.pop();
-				map.at(sn.x * height + sn.y) = tile;
-				if (map.at(sn.x * height + (sn.y > 0 ? sn.y - 1 : 0)) == target)
-					nodes.push({ sn.x, sn.y - 1 });
-				if (map.at(sn.x * height + (sn.y < width - 1 ? sn.y + 1 : width - 1)) == target)
-					nodes.push({ sn.x, sn.y + 1 });
+				if (subNodes.size() == 0)
+				{
+					if (map.at(n.x * height + (n.y > 0 ? n.y - 1 : 0)) == target)
+						nodes.push({ n.x, n.y - 1 });
+					if (map.at(n.x * height + (n.y < width - 1 ? n.y + 1 : width - 1)) == target)
+						nodes.push({ n.x, n.y + 1 });
+				}
+				else
+				{
+					auto sn = subNodes.front();
+					subNodes.pop();
+					map.at(sn.x * height + sn.y) = tile;
+					if (map.at(sn.x * height + (sn.y > 0 ? sn.y - 1 : 0)) == target)
+						nodes.push({ sn.x, sn.y - 1 });
+					if (map.at(sn.x * height + (sn.y < width - 1 ? sn.y + 1 : width - 1)) == target)
+						nodes.push({ sn.x, sn.y + 1 });
+				}
 			}
+			while (subNodes.size() > 0);
 		}
 	}
 }
