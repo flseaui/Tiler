@@ -120,9 +120,15 @@ void Layer::fill(int x, int y, int tile)
 			map.at(n.x * height + n.y) = tile;
 			std::queue<node> subNodes;
 			for (int i = n.x - 1; map.at(((i > 0 ? i : 0) * height) + n.y) == target && i >= 0; --i)
+			{
 				subNodes.push({ i, n.y });
-			for (int j = n.x + 1; map.at(((j < width - 1 ? j : width - 1) * height) + n.y) == target && j < width; ++j)
-				subNodes.push({ j, n.y });
+				subNodes.push({ i + 1, n.y });
+			}
+				for (int j = n.x + 1; map.at(((j < width - 1 ? j : width - 1) * height) + n.y) == target && j < width; ++j)
+				{
+					subNodes.push({ j, n.y });
+					subNodes.push({ j - 1, n.y });
+				}
 			do
 			{
 				if (subNodes.size() == 0)
