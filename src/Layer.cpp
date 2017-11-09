@@ -119,9 +119,9 @@ void Layer::fill(int x, int y, int tile)
 			auto n = nodes.front();
 			nodes.pop();
 			std::queue<node> subNodes;
-			for (int i = n.x - 1; map.at(((i > 0 ? i : 0) * height) + n.y) == target && i > 0; --i)
+			for (int i = n.x - 1; map.at(((i > 0 ? i : 0) * height) + n.y) == target && i >= 0; --i)
 				subNodes.push({ i, n.y });
-			for (int j = n.x + 1; map.at(((j < width - 1 ? j : width - 1) * height) + n.y) == target && j < width - 1; ++j)
+			for (int j = n.x + 1; map.at(((j < width - 1 ? j : width - 1) * height) + n.y) == target && j < width; ++j)
 				subNodes.push({ j, n.y });
 			while (subNodes.size() > 0)
 			{
