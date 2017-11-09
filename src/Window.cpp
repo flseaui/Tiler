@@ -110,7 +110,7 @@ bool Window::shouldClose() {
 }
 
 void Window::close() {
-	glfwSetWindowShouldClose(window, false);
+	glfwSetWindowShouldClose(window, true);
 }
 
 bool Window::isKeyPressed(int32 key) {

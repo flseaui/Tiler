@@ -61,7 +61,6 @@ int Layer::getTile(int xIndex, int yIndex)
 
 void Layer::setTile(int xIndex, int yIndex, int tile)
 {
-	std::cout << "kkk" << std::endl;
 	if (!(xIndex >= width || xIndex < 0 || yIndex >= height || yIndex < 0))
 		map.at(xIndex * height + yIndex) = tile;
 }
@@ -130,7 +129,7 @@ void Layer::fill(int x, int y, int tile)
 				{
 					if (map.at(n.x * height + (n.y > 0 ? n.y - 1 : 0)) == target)
 						nodes.push({ n.x, n.y - 1 });
-					if (map.at(n.x * height + (n.y < width - 1 ? n.y + 1 : width - 1)) == target)
+					if (map.at(n.x * height + (n.y < height - 1 ? n.y + 1 : height - 1)) == target)
 						nodes.push({ n.x, n.y + 1 });
 				}
 				else
@@ -140,7 +139,7 @@ void Layer::fill(int x, int y, int tile)
 					map.at(sn.x * height + sn.y) = tile;
 					if (map.at(sn.x * height + (sn.y > 0 ? sn.y - 1 : 0)) == target)
 						nodes.push({ sn.x, sn.y - 1 });
-					if (map.at(sn.x * height + (sn.y < width - 1 ? sn.y + 1 : width - 1)) == target)
+					if (map.at(sn.x * height + (sn.y < height - 1 ? sn.y + 1 : height - 1)) == target)
 						nodes.push({ sn.x, sn.y + 1 });
 				}
 			}

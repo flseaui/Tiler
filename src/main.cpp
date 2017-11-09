@@ -37,6 +37,10 @@ int main(int32 argc, char *argv[]) {
 		curTime = glfwGetTime();
 		if (curTime - pastTime > spf) {
 			deltaTime = curTime - pastTime;
+			if (window->isKeyPressed(GLFW_KEY_ESCAPE))
+			{
+				return 0;
+			}
 			update();
 			render();
 			pastTime = curTime;
@@ -78,10 +82,9 @@ void update( )
 	}
 	if (!slow)
 	{
-		framesLeft++;s
+		framesLeft++;
 	}
-	if (window->isKeyPressed(GLFW_KEY_ESCAPE))
-		window->close();
+	
 	if (window->isKeyPressed(GLFW_KEY_P))
 	{
 		if (slowLock == false)
