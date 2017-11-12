@@ -22,6 +22,12 @@ glm::mat4 Rect::fullTransform()
 	return temp;
 }
 
+glm::mat4 Rect::lessFullTransform()
+{
+	glm::mat4 temp;
+	temp = glm::scale(temp, glm::vec3(width, height, 1));
+	return temp;
+}
 
 float Rect::getX() {
 	return position.x;

@@ -16,8 +16,10 @@ GamePanel::GamePanel(Window * window, Camera * camera) : Panel(window, camera) {
 	tileButtons[2] = new TexButton(window, camera, "res/textures/cmbt.png", 0, 128, 32, 32, 3, true);
 	tileButtons[3] = new TexButton(window, camera, "res/textures/clab.png", 0, 160, 32, 32, 4, true);
 
-	panels[0] = new ColRect(camera, 0, 0, 1, 1, 0, 0, 0, window->getWidth() / 8, window->getHeight(), false);
-	panels[1] = new ColRect(camera, 1, 0, 0, 1, window->getWidth(), 0, 0, window->getWidth() / 8, window->getHeight(), false);
+	//959.5 = UI Window Width (yes ik its scubby)
+
+	panels[0] = new ColRect(camera, .5f, .5f, .5f, 1, 0, 0, 0, window->getWidth() / 16, window->getHeight(), true);
+	panels[1] = new ColRect(camera, .5f, .5f, .5f, 1, 959.5f - (window->getWidth() / 16), 0, 0, window->getWidth() / 16, window->getHeight(), true);
 	curTile = 0;
 }
 

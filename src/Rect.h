@@ -12,6 +12,7 @@ class Rect {
 public:
 	virtual void render() = 0;
 	glm::mat4 fullTransform();
+	glm::mat4 lessFullTransform();
 	float getX();
 	float getY();
 	glm::vec3 getPosition();
