@@ -172,9 +172,9 @@ void Canvas::setCurrentLayerByID(int id, Layer* layer)
 			layers[i] = layer;
 }
 
-void Canvas::setBucket(bool state)
+void Canvas::flipBucket()
 {
-	bucket = true;
+	bucket = !bucket;
 }
 
 Canvas::~Canvas()

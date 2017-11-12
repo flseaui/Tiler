@@ -9,7 +9,7 @@
 class Button : public TexRect
 {
 public:
-	Button(Window* window, Camera* camera, const char* pressed, const char* unpressed, const char* hover, float x, float y, float width, float height);
+	Button(Window* window, Camera* camera, const char* pressed, const char* unpressed, const char* hover, float x, float y, float width, float height, bool check);
 	AABB* getHitbox();
 	void update();
 	int getState();
@@ -25,12 +25,14 @@ private:
 	AABB* hitbox;
 	Texture* pressed, * unpressed, * hover;
 	Window* window;
+	bool check;
+	int stateSkek;
 };
 
 class TexButton : public Button
 {
 public:
-	TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height, int id);
+	TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height, int id, bool check);
 	void renderTexture();
 	int getID();
 private:

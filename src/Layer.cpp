@@ -100,6 +100,7 @@ void Layer::setTile(int xIndex, int yIndex, int tile)
 		delete checked;
 }*/
 
+//a big skek
 void Layer::fill(int x, int y, int tile)
 {
 	if (x >= 0 && x < width && y >= 0 && y < height)
