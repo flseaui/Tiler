@@ -130,7 +130,7 @@ Rect::~Rect() {}
 
 //ColRect - Colored Rectangle
 
-ColRect::ColRect(Camera * camera, float r, float g, float b, float a, float x, float y, float z, float width, float height) : Rect(camera, x, y, z, width, height) {
+ColRect::ColRect(Camera * camera, float r, float g, float b, float a, float x, float y, float z, float width, float height, bool independent) : Rect(camera, x, y, z, width, height) {
 	shader = Shader::SHADER2C;
 	this->r = r;
 	this->g = g;
@@ -138,6 +138,7 @@ ColRect::ColRect(Camera * camera, float r, float g, float b, float a, float x, f
 	this->a = a;
 	if (!vao)
 		initVao();
+	this->independent = independent;
 }
 
 void ColRect::initVao() {
@@ -167,7 +168,7 @@ void ColRect::render(bool state) {
 void ColRect::render() {
 	shader->enable();
 	shader->setProjection(camera->getProjection());
-	shader->setView(camera->getView());
+	shader->setView(independent ? glm::mat4(1) : camera->getView());
 	shader->setModel(fullTransform());
 	shader->setColor(r, g, b, a);
 	vao->render(0);

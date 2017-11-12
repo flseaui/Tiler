@@ -9,7 +9,7 @@ Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWi
 	this->height = height;
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
-	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100);
+	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100, false);
 	hitbox = new AABB(0, 0, width * tileWidth, height * tileHeight);
 	tileset = new Tileset(camera, 6);
 	layers.resize(width * height);

@@ -47,7 +47,7 @@ protected:
 
 class ColRect : public Rect {
 public:
-	ColRect(Camera * camera, float r, float g, float b, float a, float x, float y, float z, float width, float height);
+	ColRect(Camera * camera, float r, float g, float b, float a, float x, float y, float z, float width, float height, bool independent);
 	void render();
 	void render(bool type);
 	~ColRect();
@@ -56,6 +56,7 @@ private:
 	static Vao * vao;
 	void initVao();
 	float r, g, b, a;
+	bool independent;
 };
 
 class TexRect : public Rect {

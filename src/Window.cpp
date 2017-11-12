@@ -30,8 +30,10 @@ void Window::init(int32 width, int32 height, const char title[], bool vSync, boo
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 
-	glfwWindowHint(GLFW_RESIZABLE, resizable);
+	if (width <= 0 && height <= 0)
+		glfwWindowHint(GLFW_RESIZABLE, resizable);
 
 	const GLFWvidmode * vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	if (width > 0 && height > 0) 
