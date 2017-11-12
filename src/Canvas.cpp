@@ -45,9 +45,7 @@ void Canvas::update(int curTile)
 	if (window->getMouseLeft())
 	{
 		if (bucket)
-		{
 			getCurrentLayer()->fill(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, curTile);
-		}
 		else
 			getCurrentLayer()->setTile(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, curTile);	
 	}
@@ -172,9 +170,9 @@ void Canvas::setCurrentLayerByID(int id, Layer* layer)
 			layers[i] = layer;
 }
 
-void Canvas::flipBucket()
+void Canvas::setBucket(bool state)
 {
-	bucket = !bucket;
+	bucket = state;
 }
 
 Canvas::~Canvas()

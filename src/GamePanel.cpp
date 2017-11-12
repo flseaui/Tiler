@@ -11,10 +11,10 @@ GamePanel::GamePanel(Window * window, Camera * camera) : Panel(window, camera) {
 	toolButtons[0] = new TexButton(window, camera, "res/textures/eraser.png", 0, 0, 32, 32, 0, true);
 	toolButtons[1] = new TexButton(window, camera, "res/textures/paint_bucket.png", 0, 32, 32, 32, 1, true);
 	//tile buttons
-	tileButtons[0] = new TexButton(window, camera, "res/textures/sky_tile.png", 0, 64, 32, 32, 2, true);
-	tileButtons[1] = new TexButton(window, camera, "res/textures/stone_tile.png", 0, 96, 32, 32, 3, true);
-	tileButtons[2] = new TexButton(window, camera, "res/textures/cmbt.png", 0, 128, 32, 32, 4, true);
-	tileButtons[3] = new TexButton(window, camera, "res/textures/clab.png", 0, 160, 32, 32, 5, true);
+	tileButtons[0] = new TexButton(window, camera, "res/textures/sky_tile.png", 0, 64, 32, 32, 1, true);
+	tileButtons[1] = new TexButton(window, camera, "res/textures/stone_tile.png", 0, 96, 32, 32, 2, true);
+	tileButtons[2] = new TexButton(window, camera, "res/textures/cmbt.png", 0, 128, 32, 32, 3, true);
+	tileButtons[3] = new TexButton(window, camera, "res/textures/clab.png", 0, 160, 32, 32, 4, true);
 
 	curTile = 0;
 }
@@ -30,14 +30,12 @@ void GamePanel::update() {
 			for (TexButton* otherButton : toolButtons)
 				if (otherButton != button)
 					otherButton->setState(0);
-			//if button is paint bucket
-			if (button->getID() == 1)
-			{
-				canvas->flipBucket();
-			}
-			else
+
 				curTile = button->getID();
 		}
+		//if button is paint bucket
+		if (button->getID() == 1)
+			canvas->setBucket(button->getState() == 2 ? true : false);
 	}
 
 	for (TexButton* button : tileButtons)

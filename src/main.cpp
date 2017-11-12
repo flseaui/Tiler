@@ -65,7 +65,7 @@ int main(int32 argc, char *argv[]) {
 
 void init()
 {
-	window = new Window(1920-200, 1080-200, "Tiler", true, true);
+	window = new Window(0, 0, "Tiler", true, true);
 	camera = new Camera(640, 360);
 	Shader::init();
 	panels[0] = new GamePanel(window, camera);
