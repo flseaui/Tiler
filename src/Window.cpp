@@ -11,14 +11,17 @@ void cursorPosCallback(GLFWwindow* window, double x, double y);
 double mouseX, mouseY;
 bool mouseLeft, mouseRight;
 
-Window::Window(int32 width, int32 height, const char title[], bool vSync, bool resizable) {
+Window::Window(int32 width, int32 height, const char title[], bool vSync, bool resizable)
+{
 	init(width, height, title, vSync, resizable);
 }
 
-void Window::init(int32 width, int32 height, const char title[], bool vSync, bool resizable) {
+void Window::init(int32 width, int32 height, const char title[], bool vSync, bool resizable) 
+{
 	glfwSetErrorCallback(errorCallback);
 
-	if (!glfwInit()) {
+	if (!glfwInit()) 
+	{
 		fprintf(stderr, "Failed to initalize GLFW!");
 		exit(-1);
 	}
@@ -31,18 +34,21 @@ void Window::init(int32 width, int32 height, const char title[], bool vSync, boo
 	glfwWindowHint(GLFW_RESIZABLE, resizable);
 
 	const GLFWvidmode * vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	if (width > 0 && height > 0) {
+	if (width > 0 && height > 0) 
+	{
 		window = glfwCreateWindow(width, height, title, 0, 0);
 		this->width = width;
 		this->height = height;
 	}
-	else {
+	else
+	{
 		window = glfwCreateWindow(vidMode->width, vidMode->height, title, glfwGetPrimaryMonitor(), 0);
 		this->width = vidMode->width;
 		this->height = vidMode->height;
 	}
 
-	if (!window) {
+	if (!window)
+	{
 		fprintf(stderr, "Failed to create window!");
 		glfwTerminate();
 		exit(-1);
@@ -54,7 +60,8 @@ void Window::init(int32 width, int32 height, const char title[], bool vSync, boo
 
 	glewExperimental = true;
 
-	if (glewInit() != GLEW_OK) {
+	if (glewInit() != GLEW_OK) 
+	{
 		fprintf(stderr, "Failed to initialize GLEW!");
 		glfwDestroyWindow(window);
 		glfwTerminate();
@@ -77,43 +84,53 @@ void Window::init(int32 width, int32 height, const char title[], bool vSync, boo
 	glfwSetWindowUserPointer(window, this);
 }
 
-void Window::poll() {
+void Window::poll() 
+{
 	glfwPollEvents();
 }
 
-void Window::clear() {
+void Window::clear()
+{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Window::swap() {
+void Window::swap()
+{
 	glfwSwapBuffers(window);
 }
 
-int32 Window::getWidth() {
+int32 Window::getWidth()
+{
 	return width;
 }
 
-int32 Window::getHeight() {
+int32 Window::getHeight() 
+{
 	return height;
 }
 
-void Window::setWidth(int32 width) {
+void Window::setWidth(int32 width)
+{
 	this->width = width;
 }
 
-void Window::setHeight(int32 height) {
+void Window::setHeight(int32 height) 
+{
 	this->height = height;
 }
 
-bool Window::shouldClose() {
+bool Window::shouldClose() 
+{
 	return glfwWindowShouldClose(window);
 }
 
-void Window::close() {
+void Window::close()
+{
 	glfwSetWindowShouldClose(window, true);
 }
 
-bool Window::isKeyPressed(int32 key) {
+bool Window::isKeyPressed(int32 key)
+{
 	return glfwGetKey(window, key) == GLFW_PRESS;
 }
 
@@ -157,19 +174,23 @@ bool Window::getMouseRight()
 	return mouseRight;
 }
 
-Window::~Window() {
+Window::~Window()
+{
 	glfwDestroyWindow(window);
 }
 
-void Window::terminate() {
+void Window::terminate()
+{
 	glfwTerminate();
 }
 
-void errorCallback(int32 code, const char message[]) {
+void errorCallback(int32 code, const char message[]) 
+{
 	fprintf(stderr, "Error code: %d  -  %s", code, message);
 }
 
-void windowSizeCallback(GLFWwindow * window, int32 width, int32 height) {
+void windowSizeCallback(GLFWwindow * window, int32 width, int32 height) 
+{
 	Window * wObj = static_cast<Window *> (glfwGetWindowUserPointer(window));
 	glViewport(0, 0, width, height);
 	wObj->setWidth(width);

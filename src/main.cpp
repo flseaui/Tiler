@@ -27,6 +27,8 @@ Window * window;
 Camera * camera;
 Panel * panels[1];
 
+int vWidth = 0, vHeight = 0;
+
 int main(int32 argc, char *argv[]) {
 	init();
 	double pastTime = glfwGetTime();
@@ -117,6 +119,12 @@ void render()
 	window->clear();
 	panels[state]->render();
 	window->swap();
+	if (window->getWidth() != vWidth || window->getHeight() != vHeight)
+	{
+		camera->setDims(vWidth, vHeight);
+		vWidth = window->getWidth()/2;
+		vHeight = window->getHeight()/2;
+	}
 }
 
 void checkState()

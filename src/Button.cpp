@@ -89,6 +89,11 @@ int Button::getState()
 	return state;
 }
 
+void Button::setState(int state)
+{
+	this->state = State(state);
+}
+
 TexButton::TexButton(Window* window, Camera* camera, const char* texture, float x, float y, float width, float height, int id, bool check) : Button(window, camera, "res/textures/button_pressed.png", "res/textures/button_unpressed.png", "res/textures/button_hover.png", x, y, width, height, check)
 {
 	this->texture = new TexRect(camera, texture, x + (width / 6), y + (height / 6), 0, width - (width / 3), height - (height / 3), true);

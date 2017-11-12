@@ -13,6 +13,7 @@ public:
 	AABB* getHitbox();
 	void update();
 	int getState();
+	void setState(int state);
 private:
 	enum State
 	{
