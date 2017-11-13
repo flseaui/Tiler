@@ -8,18 +8,20 @@ GamePanel::GamePanel(Window * window, Camera * camera) : Panel(window, camera) {
 	//line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, 100, 0.1f);
 	canvas = new Canvas(window, camera, 16, 16, 32, 32);
 	//tool buttons
-	toolButtons[0] = new TexButton(window, camera, "res/textures/eraser.png", 0, 0, 32, 32, 0, true);
-	toolButtons[1] = new TexButton(window, camera, "res/textures/paint_bucket.png", 0, 32, 32, 32, 1, true);
+	toolButtons[0] = new TexButton(window, camera, "res/textures/eraser.png",		0, 32 * 0, 32, 32, 0, true);
+	toolButtons[1] = new TexButton(window, camera, "res/textures/paint_bucket.png", 0, 32 * 1, 32, 32, 1, true);
 	//tile buttons
-	tileButtons[0] = new TexButton(window, camera, "res/textures/sky_tile.png", 0, 64, 32, 32, 1, true);
-	tileButtons[1] = new TexButton(window, camera, "res/textures/stone_tile.png", 0, 96, 32, 32, 2, true);
-	tileButtons[2] = new TexButton(window, camera, "res/textures/cmbt.png", 0, 128, 32, 32, 3, true);
-	tileButtons[3] = new TexButton(window, camera, "res/textures/clab.png", 0, 160, 32, 32, 4, true);
+	tileButtons[0] = new TexButton(window, camera, "res/textures/sky_tile.png",		0, 32 * 2, 32, 32, 1, true);
+	tileButtons[1] = new TexButton(window, camera, "res/textures/stone_tile.png",   0, 32 * 3, 32, 32, 2, true);
+	tileButtons[2] = new TexButton(window, camera, "res/textures/cmbt.png",			0, 32 * 4, 32, 32, 3, true);
+	tileButtons[3] = new TexButton(window, camera, "res/textures/clab.png",			0, 32 * 5, 32, 32, 4, true);
+
+	layerSelector = new TexRect(camera, "res/textures/layer_selector.png", 959 - 148, 410, 0, 128, 128, true);
 
 	//959.5 = UI Window Width (yes ik its scubby)
 
-	panels[0] = new ColRect(camera, .5f, .5f, .5f, 1, 0, 0, 0, window->getWidth() / 16, window->getHeight(), true);
-	panels[1] = new ColRect(camera, .5f, .5f, .5f, 1, 959.5f - (window->getWidth() / 16), 0, 0, window->getWidth() / 16, window->getHeight(), true);
+	panels[0] = new ColRect(camera, .5f, .5f, .5f, 1, 0,                                  0, 0, window->getWidth() / 12, window->getHeight(), true);
+	panels[1] = new ColRect(camera, .5f, .5f, .5f, 1, 959.5f - (window->getWidth() / 12), 0, 0, window->getWidth() / 12, window->getHeight(), true);
 	curTile = 0;
 }
 
@@ -69,6 +71,8 @@ void GamePanel::update() {
 
 void GamePanel::render() 
 {
+	layerSelector->render();
+
 	for (TexButton* button : toolButtons)
 	{
 		button->renderTexture();

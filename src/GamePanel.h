@@ -23,6 +23,7 @@ class GamePanel : public Panel
 		Canvas* canvas;
 		TexButton* tileButtons[4], * toolButtons[2]; 
 		ColRect* panels[2];
+		TexRect* layerSelector;
 		int curTile;
 };
 
