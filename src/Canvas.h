@@ -34,6 +34,7 @@ public:
 	void setCurrentLayerByID(int id, int index);
 	void setCurrentLayerByID(int id, Layer* layer);
 	void setBucket(bool state);
+	void exportCanvas();
 private:
 	Window* window;
 	Camera* camera;

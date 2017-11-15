@@ -28,6 +28,10 @@ GamePanel::GamePanel(Window * window, Camera * camera) : Panel(window, camera) {
 void GamePanel::update() {
 	canvas->update(curTile);
 
+	if (window->isKeyPressed(GLFW_KEY_LEFT_CONTROL))
+		if (window->isKeyPressed(GLFW_KEY_S))
+			canvas->exportCanvas();
+
 	for (TexButton* button : toolButtons)
 	{
 		button->update();
