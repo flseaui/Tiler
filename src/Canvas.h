@@ -36,6 +36,7 @@ public:
 	void setBucket(bool state);
 	void exportCanvas();
 	void importCanvas();
+	int roundUp(int num, int multiple);
 private:
 	Window* window;
 	Camera* camera;
@@ -44,6 +45,7 @@ private:
 	Tileset* tileset;
 	AABB* hitbox;
 	ColRect* line;
+	ColRect* selection;
 	Tile* tex, *hTex;
 	bool bucket;
 };

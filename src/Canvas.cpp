@@ -12,6 +12,7 @@ Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWi
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
 	line = new ColRect(camera, 1, 1, 1, 1, 0, 0, 0, .1f, 100, false);
+	selection = new ColRect(camera, 0, 0, 1, .3, 0, 0, 1, 32, 32, false);
 	hitbox = new AABB(0, 0, width * tileWidth, height * tileHeight);
 	tileset = new Tileset(camera, 6);
 	layers.resize(width * height);
@@ -51,6 +52,20 @@ void Canvas::update(int curTile)
 		else
 			getCurrentLayer()->setTile(window->getMouseCX(camera) / tileWidth, window->getMouseCY(camera) / tileHeight, curTile);	
 	}
+
+	selection->setPosition(roundUp(window->getMouseCX(camera) - tileWidth, tileWidth), roundUp(window->getMouseCY(camera) - tileHeight, tileHeight));
+}
+
+int Canvas::roundUp(int numToRound, int multiple)
+{
+	if (multiple == 0)
+		return numToRound;
+
+	int remainder = numToRound % multiple;
+	if (remainder == 0)
+		return numToRound;
+
+	return numToRound + multiple - remainder;
 }
 
 void Canvas::render()
@@ -76,10 +91,14 @@ void Canvas::render()
 	//hTex->setDims(width * tileWidth, height * tileHeight);
 	//hTex->render();
 	//render layers
+
+	selection->render();
+
 	for (Layer* l : layers)
 		if (l != nullptr)
 			if (l->enabled())
 				l->render();
+
 }
 
 void Canvas::exportCanvas()
@@ -129,12 +148,14 @@ void Canvas::exportCanvas()
 	//write canvas to map file
 	//open selected file in write mode
 	std::ofstream outfile;
-	outfile.open(filename, std::ios::out | std::ios::trunc);
+	outfile.open(filename, std::ios::out | std::ios::trunc | std::ios::binary);
 
 	for (Layer* layer : layers)
 	{
 		if (layer != nullptr)
 		{
+			outfile << layer->getTitle() << std::endl;
+			outfile << layer->getWidth() << '$' << layer->getHeight() << std::endl;
 			for (size_t i = 0; i < layer->getWidth(); i++)
 			{
 				for (size_t j = 0; j < layer->getHeight(); j++)
@@ -192,6 +213,14 @@ void Canvas::importCanvas()
 		default: std::cout << "You cancelled.\n";
 		}
 	}
+
+	//read canvas from map file
+	//open selected file in read mode
+	std::ifstream infile;
+	infile.open(filename, std::ios::binary);
+	std::vector<char> buffer((
+		std::istreambuf_iterator<char>(infile)),
+		(std::istreambuf_iterator<char>()));
 }
 
 int Canvas::getWidth()
