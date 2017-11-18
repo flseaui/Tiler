@@ -92,13 +92,14 @@ void Canvas::render()
 	//hTex->render();
 	//render layers
 
-	selection->render();
+	
 
 	for (Layer* l : layers)
 		if (l != nullptr)
 			if (l->enabled())
 				l->render();
-
+	if (window->getMouseCX(camera) > 0 && window->getMouseCX(camera) < width * tileWidth && window->getMouseCY(camera) > 0 && window->getMouseCY(camera) < height * tileHeight)
+		selection->render();
 }
 
 void Canvas::exportCanvas()

@@ -80,10 +80,7 @@ void GamePanel::update() {
 
 void GamePanel::render() 
 {
-	std::cout << window->getMouseCX(camera) << std::endl;
-
-	if (window->getMouseCX(camera) > 0 && window->getMouseCX(camera) < canvas->getWidth() && window->getMouseCY(camera) > 0 && window->getMouseCY(camera) < canvas->getHeight())
-		layerSelector->render();
+	layerSelector->render();
 
 	for (TexButton* button : toolButtons)
 	{
