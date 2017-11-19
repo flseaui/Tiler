@@ -48,6 +48,7 @@ private:
 	ColRect* selection;
 	Tile* tex, *hTex;
 	bool bucket;
+	bool grid;
 };
 
 #endif

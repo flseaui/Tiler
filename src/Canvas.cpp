@@ -23,6 +23,7 @@ Canvas::Canvas(Window* window, Camera* camera, int width, int height, int tileWi
 	camera->setPos(glm::vec3(-(width * tileWidth) / 2, -((height * tileHeight) / 9), 0));
 
 	bucket = false;
+	grid = true;
 }
 
 void Canvas::update(int curTile)
@@ -45,6 +46,10 @@ void Canvas::update(int curTile)
 				}
 			}
 		}*/
+
+	if (window->isKeyPressed(GLFW_KEY_G))
+		grid = !grid;
+
 	if (window->getMouseLeft())
 	{
 		if (bucket)
@@ -72,34 +77,37 @@ void Canvas::render()
 {
 	
 	//render grid
-	line->setWidth(.1f);
-	line->setHeight(width * tileWidth);
-	for (int i = 0; i <= width; ++i)
+	if (grid)
 	{
-		line->setPosition(i * tileWidth, 0);
-		line->render(true);
-	}
+		line->setWidth(.1f);
+		line->setHeight(width * tileWidth);
+		for (int i = 0; i <= width; ++i)
+		{
+			line->setPosition(i * tileWidth, 0);
+			line->render(true);
+		}
 
-	line->setWidth(height * tileHeight);
-	line->setHeight(.1f);
-	for (int i = 0; i <= height; ++i)
-	{
-		line->setPosition(0, i * tileHeight);
-		line->render(true);
+		line->setWidth(height * tileHeight);
+		line->setHeight(.1f);
+		for (int i = 0; i <= height; ++i)
+		{
+			line->setPosition(0, i * tileHeight);
+			line->render(true);
+		}
 	}
 	//hTex->setPosition(0, 0);
 	//hTex->setDims(width * tileWidth, height * tileHeight);
 	//hTex->render();
-	//render layers
-
-	
+	//render layers	
 
 	for (Layer* l : layers)
 		if (l != nullptr)
 			if (l->enabled())
 				l->render();
+
+	//render selector
 	if (window->getMouseCX(camera) > 0 && window->getMouseCX(camera) < width * tileWidth && window->getMouseCY(camera) > 0 && window->getMouseCY(camera) < height * tileHeight)
-		selection->render();
+		selection->render();	
 }
 
 void Canvas::exportCanvas()

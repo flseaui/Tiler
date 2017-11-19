@@ -32,6 +32,8 @@ public:
 	double getMouseY();
 	bool getMouseLeft();
 	bool getMouseRight();
+	double getScrollX();
+	double getScrollY();
 
 	~Window();
 

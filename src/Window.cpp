@@ -7,8 +7,10 @@ void errorCallback(int32 code, const char message[]);
 void windowSizeCallback(GLFWwindow * window, int32 width, int32 height);
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 void cursorPosCallback(GLFWwindow* window, double x, double y);
+void scrollCallback(GLFWwindow* window, double x, double y);
 
 double mouseX, mouseY;
+double scrollX, scrollY;
 bool mouseLeft, mouseRight;
 
 Window::Window(int32 width, int32 height, const char title[], bool vSync, bool resizable)
@@ -88,6 +90,7 @@ void Window::init(int32 width, int32 height, const char title[], bool vSync, boo
 	glfwSetWindowSizeCallback(window, windowSizeCallback);
 	glfwSetCursorPosCallback(window, cursorPosCallback);
 	glfwSetMouseButtonCallback(window, mouseButtonCallback);
+	glfwSetScrollCallback(window, scrollCallback);
 
 	glfwSetWindowUserPointer(window, this);
 }
@@ -182,6 +185,16 @@ bool Window::getMouseRight()
 	return mouseRight;
 }
 
+double Window::getScrollX()
+{
+	return scrollX;
+}
+
+double Window::getScrollY()
+{
+	return scrollY;
+}
+
 Window::~Window()
 {
 	glfwDestroyWindow(window);
@@ -209,6 +222,12 @@ void cursorPosCallback(GLFWwindow* window, double x, double y)
 {
 	mouseX = x;
 	mouseY = y;
+}
+
+void scrollCallback(GLFWwindow* window, double x, double y)
+{
+	scrollX = x;
+	scrollY = y;
 }
 
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)

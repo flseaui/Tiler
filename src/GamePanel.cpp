@@ -16,16 +16,18 @@ GamePanel::GamePanel(Window * window, Camera * camera) : Panel(window, camera) {
 	tileButtons[2] = new TexButton(window, camera, "res/textures/cmbt.png",			0, 32 * 4, 32, 32, 3, true);
 	tileButtons[3] = new TexButton(window, camera, "res/textures/clab.png",			0, 32 * 5, 32, 32, 4, true);
 
-	layerSelector = new TexRect(camera, "res/textures/layer_selector.png", 959 - 148, 410, 0, 128, 128, true);
+	layerSelector = new TexRect(camera, "res/textures/layer_selector.png", 1280 - 148, 410, 0, 128, 128, true);
 
 	//959.5 = UI Window Width (yes ik its scubby)
+	//1280 = 1440p UI Window Width (yes ik its really scubby)
 
 	panels[0] = new ColRect(camera, .5f, .5f, .5f, 1, 0,                                  0, 0, window->getWidth() / 12, window->getHeight(), true);
-	panels[1] = new ColRect(camera, .5f, .5f, .5f, 1, 959.5f - (window->getWidth() / 12), 0, 0, window->getWidth() / 12, window->getHeight(), true);
+	panels[1] = new ColRect(camera, .5f, .5f, .5f, 1, 1280 - (window->getWidth() / 12), 0, 0, window->getWidth() / 12, window->getHeight(), true);
 	curTile = 0;
 }
 
 void GamePanel::update() {
+	std::cout << window->getMouseCX(camera) << std::endl;
 	canvas->update(curTile);
 
 	//control functions
