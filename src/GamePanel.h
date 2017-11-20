@@ -11,6 +11,8 @@
 
 #include "Rect.h"
 
+#include "Scrollbar.h"
+
 class GamePanel : public Panel
 {
 	public:
@@ -24,6 +26,7 @@ class GamePanel : public Panel
 		TexButton* tileButtons[4], * toolButtons[2]; 
 		ColRect* panels[2];
 		TexRect* layerSelector;
+		Scrollbar* layerBar;
 		int curTile;
 };
 
