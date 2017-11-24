@@ -1,6 +1,9 @@
 #ifndef __TEXT_H_
 #define __TEXT_H_
 
+#include "Shader.h"
+#include "Vao.h"
+
 class Text
 {
 public:
@@ -11,6 +14,11 @@ public:
 	const char* getContent();
 private:
 	const char* content;
+	Shader2f * shader;
+	static Vao * vao;
+	void initVao();
+	float r, g, b, a;
+	bool independent;
 };
 
 #endif

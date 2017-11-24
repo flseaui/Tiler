@@ -128,3 +128,18 @@ Shader2c::~Shader2c() {}
 Shader2t::Shader2t() : Shader("res/shaders/s2t/vert.vs", "res/shaders/s2t/frag.fs") {}
 
 Shader2t::~Shader2t() {}
+
+//Shader2f - A shader for drawing 2d text a solid color
+Shader2f::Shader2f() : Shader("res/shaders/s2f/vert.vs", "res/shaders/s2f/frag.fs") {
+	getUniformLocs();
+}
+
+void Shader2f::getUniformLocs() {
+	colorLoc = glGetUniformLocation(program, "textColor");
+}
+
+void Shader2f::setColor(float r, float g, float b, float a) {
+	glUniform4f(colorLoc, r, g, b, a);
+}
+
+Shader2f::~Shader2f() {}
